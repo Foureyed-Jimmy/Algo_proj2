@@ -1,9 +1,10 @@
 from operator import sub
 import random
+from json import json
 
 def powerset(set):
     if not set:
-        return [[]]
+        return [[]].;
     ps = powerset(set[1:])
     return ps + [[set[0]] + n for n in ps]
 

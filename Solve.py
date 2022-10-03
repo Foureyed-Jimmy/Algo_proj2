@@ -1,16 +1,28 @@
 from parser import parse
 
-
-
 def interpret(value, statement):
     if statement < 0: 
         return not value
     return value
 
+def get(d, value):
+    b = d[abs(value)]["set"]
+    if value < 0:
+        return not b
+    return b
+
+
+def write_file(arr, count,f_name):
+    with open(f"{f_name.split('.',2)[0]}_output.txt", 'w') as file:
+        file.write(str(count) + "\n")
+        for item in arr:
+            file.write(str(item) + "\n")
+
+
 def genDict(size):
-    parent = dict.fromkeys(range(1,size), None)
+    parent = dict.fromkeys(range(1,size + 1), None)
     for key in parent.keys():
-        parent[key] = dict.fromkeys([True, False], 0)
+        parent[key] = dict.fromkeys([True, False, "set"], 0)
     return parent
 
 def solve(vals):
@@ -23,9 +35,22 @@ def solve(vals):
             if interpret(pos_combs[j][0], vals[i][0]) or interpret(pos_combs[j][1], vals[i][1]):
                 d[abs(vals[i][0])][pos_combs[j][0]] += 1
                 d[abs(vals[i][1])][pos_combs[j][1]] += 1
-    print(d)
+    for key in d.keys():
+        item  = d[key]
+        item["set"] = item[True] >= item[False]
+    count = 0
+    solarr = []
+    for item in vals:
+        value = get(d, item[0]) or get(d, item[1])
+        solarr.append(value)
+        if value:
+            count += 1 
+    sol_arr = [(1 if d[key]["set"] else 0) for key in d.keys()]
+    return (sol_arr, count)
+    
 
 if __name__ == "__main__":
     inp = input("Enter The Text File Name:\n")
     parsed_input = parse(inp)
-    solve(parsed_input)
+    (arr, count) = solve(parsed_input)
+    write_file(arr, count, inp)
