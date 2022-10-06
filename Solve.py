@@ -13,7 +13,7 @@ def get(d, value):
 
 
 def write_file(arr, count,f_name):
-    with open(f"{f_name.split('.',2)[0]}_output.txt", 'w') as file:
+    with open(f"solutions/{f_name.split('/',100000)[-1].split('.',2)[0]}_output.txt", 'w') as file:
         file.write(str(count) + "\n")
         for item in arr:
             file.write(str(item) + "\n")
@@ -48,6 +48,10 @@ def solve(vals):
     sol_arr = [(1 if d[key]["set"] else 0) for key in d.keys()]
     return (sol_arr, count)
     
+def init_solve(filename):
+    parsed_input = parse(filename)
+    (arr, count) = solve(parsed_input)
+    write_file(arr, count, filename)
 
 if __name__ == "__main__":
     inp = input("Enter The Text File Name:\n")
