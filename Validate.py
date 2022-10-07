@@ -23,10 +23,6 @@ def validate(inputfile, items):
             count += 1
     return count == number_true
 
-# def validateFile(file):
-#     parsed_input = parse(file)
-#     validate(parsed_input)
-
 if __name__ == "__main__":
     file_name = input("Enter Input File Name:\n")
     sol_name = input("Enter the solution file:\n")

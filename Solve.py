@@ -1,4 +1,5 @@
 from parser import parse
+import os
 
 def interpret(value, statement):
     if statement < 0: 
@@ -13,6 +14,8 @@ def get(d, value):
 
 
 def write_file(arr, count,f_name):
+    if not os.path.exists("solutions"): 
+        os.mkdir("solutions")
     with open(f"solutions/{f_name.split('/',100000)[-1].split('.',2)[0]}_output.txt", 'w') as file:
         file.write(str(count) + "\n")
         for item in arr:
