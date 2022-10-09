@@ -24,7 +24,7 @@ def write_file(arr, count,f_name):
 
 def genDict(size):
     parent = dict.fromkeys(range(1,size + 1), None)
-    for key in parent.keys():
+    for key in parent.keys(): #{1:{True:2,False:1}, 2:{True:2, False:1}}
         parent[key] = dict.fromkeys([True, False, "set"], 0)
     return parent
 
@@ -42,10 +42,9 @@ def solve(vals):
         item  = d[key]
         item["set"] = item[True] >= item[False]
     count = 0
-    solarr = []
+    
     for item in vals:
         value = get(d, item[0]) or get(d, item[1])
-        solarr.append(value)
         if value:
             count += 1 
     sol_arr = [(1 if d[key]["set"] else 0) for key in d.keys()]

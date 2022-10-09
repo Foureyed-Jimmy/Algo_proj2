@@ -11,11 +11,9 @@ def parse_output(file):
 
 
 def validate_batch(file):
-    input_file = parse("input.txt")
+    input_file = parse("input1.txt")
     output_file = parse_output(file)
     print(f"{file.split('/', 100)[-1]}: {validate(input_file, output_file)}")
-
-
 
 def validate(inputfile, items):
     number_true = items[0]

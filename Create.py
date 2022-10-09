@@ -20,11 +20,12 @@ gen_struct = [
     [1, -1],
     [-1, -1]
     ]
-MAX_CLAUSE = 50000
+MAX_CLAUSE = 100_000
+MAX_VARIABLE = 2_000
 def generateInput():
     arr = []
-    clauses = random.randint(1,50000) #clauses
-    variables = random.randint(2,40)  #variables per clause
+    clauses = random.randint(1,MAX_CLAUSE) #clauses
+    variables = random.randint(2, MAX_VARIABLE)  #variables per clause
     var_array = range(1, variables + 1)
     input_array = []
     
@@ -36,9 +37,13 @@ def generateInput():
     #                 input_array.append([num * subArr[0], num2 * subArr[1]])
     # if len(input_array) > MAX_CLAUSE:
     #     input_array = input_array[splice(MAX_CLAUSE)]
-    while len(input_array) <= clauses:
-        struct = gen_struct[random.randint(0,3)]
-        input_array.append([struct[0] * var_array[random.randint(0, len(var_array)-1)], struct[1] * var_array[random.randint(0, len(var_array)-1)]])
+    while len(input_array) < clauses:
+        struct = gen_struct[random.randint(0,3)] 
+        num1 = var_array[random.randint(0, len(var_array)-1)]
+        num2 = num1
+        while num2 == num1:
+            num2 = var_array[random.randint(0, len(var_array)-1)]
+        input_array.append([struct[0] * num1, struct[1] * num2])
     arr.append([clauses, variables])
     arr.append(input_array)  
     return arr
